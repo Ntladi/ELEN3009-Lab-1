@@ -1,10 +1,12 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-// The method is useful because it abstracts the other cursor
-// functions away, thus making the code easier for the client to use.
-// However, it would be more useful if the other cursor functions
-// are made private to further increase encapsulation.
+// The existing interface of public functions is sufficient in order
+// to draw empty squares on the screen.
+// The drawSquare function does not need to form part of this class.
+// It would be much better if a screen object is passed into a class that 
+// manipulates the object by drawing the square.
+// This is viable because the existing interface can be used to draw the square
 
 #include <string>
 #include <iostream>
@@ -64,6 +66,9 @@ public:
 	// check whether the specified co-ordinates lie within the screen
 	bool checkRange(string::size_type row, string::size_type col) const;
 
+	// member function used to draw the square
+	void drawSquare(const string::size_type & topRow, const string::size_type & topCol, const string::size_type & length);
+
 private:
 	// constants
 	// 0 represents the top-left screen element
@@ -72,6 +77,15 @@ private:
 	// private member functions
 	string::size_type remainingSpace() const;
 	string::size_type row() const;
+
+	// custom private member functions
+	bool checkWidth( const string::size_type & topRow, const string::size_type & length );
+	bool checkHeight( const string::size_type & col, const string::size_type & length );
+	void clearSquareSpace( const string::size_type & topRow, const string::size_type & topCol, const string::size_type & length );
+	void setRowsSquare( const string::size_type & topRow, const string::size_type & topCol, const string::size_type & length );
+	void setHorizontalX( const string::size_type & length );
+	void setVerticalX( const string::size_type & topRow, const string::size_type & topCol, const string::size_type & length );
+	void setRightColSquare( const string::size_type & topRow, const string::size_type & topCol, const string::size_type & length );
 
 	// private data members
 	// (using a trailing underscore is a naming convention for private data - not a requirement)
