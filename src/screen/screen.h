@@ -1,6 +1,21 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+// There are three distinct instances where const is used throughout the class.
+
+// An example of the first distinct instance can be seen in line 36
+// This instance of const forbids member variables of that specific object from
+// being altered by class methods
+
+// An example of the second distinct instance can be seen in line 63
+// This instance forbids parameters that are passed within class methods from being altered
+
+// An example of the third distinct instance can be found in line 77
+// This instance forbids the value of a variable from being altered after it has been set.
+
+// The at(string::size_type __n) method within the string class returns a reference to the position of
+// the char at __n within the string
+
 #include <string>
 #include <iostream>
 using namespace std;
