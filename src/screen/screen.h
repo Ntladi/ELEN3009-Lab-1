@@ -1,12 +1,13 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-// The existing interface of public functions is sufficient in order
-// to draw empty squares on the screen.
-// The drawSquare function does not need to form part of this class.
-// It would be much better if a screen object is passed into a class that 
-// manipulates the object by drawing the square.
-// This is viable because the existing interface can be used to draw the square
+// A much more intuitive representation would be to use a 2 dimensional array/vector of chars
+// as the internal representation for the screen. This way the public interface does not need
+// to change with the exception of accounting for the off by one problem for some some methods
+
+// Changing the interface is discouraged because it may not be backwards compatible with existing code.
+// However, changing the implementation is fine because it is recommended to encapsulate
+// the code from the user so that they do not directly interact with the implementation of the class.
 
 #include <string>
 #include <iostream>
