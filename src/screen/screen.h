@@ -1,6 +1,14 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+// A much more intuitive representation would be to use a 2 dimensional array/vector of chars
+// as the internal representation for the screen. This way the public interface does not need
+// to change with the exception of accounting for the off by one problem for some some methods
+
+// Changing the interface is discouraged because it may not be backwards compatible with existing code.
+// However, changing the implementation is fine because it is recommended to encapsulate
+// the code from the user so that they do not directly interact with the implementation of the class.
+
 #include <string>
 #include <iostream>
 using namespace std;
@@ -11,6 +19,7 @@ using namespace std;
 // The range of string::size_type is guaranteed to be large enough to store the maximum
 // *size* of any string that can be held by the string class as well as any index into
 // the string.
+	enum class Direction {HOME, FORWARD, BACK, UP, DOWN, END};
 
 class Screen {
 public:
@@ -36,6 +45,8 @@ public:
 	void down();
 	// move the cursor to the specified row and column
 	void move(string::size_type row, string::size_type col);
+	// overloading the move method
+	void move(Direction dir);
 
 	// get the character at the cursor's current position
 	char get() const { return _screen[cursor_]; }
@@ -56,6 +67,9 @@ public:
 	// check whether the specified co-ordinates lie within the screen
 	bool checkRange(string::size_type row, string::size_type col) const;
 
+	// member function used to draw the square
+	void drawSquare(const string::size_type & topRow, const string::size_type & topCol, const string::size_type & length);
+
 private:
 	// constants
 	// 0 represents the top-left screen element
@@ -64,6 +78,15 @@ private:
 	// private member functions
 	string::size_type remainingSpace() const;
 	string::size_type row() const;
+
+	// custom private member functions
+	bool checkWidth( const string::size_type & topRow, const string::size_type & length );
+	bool checkHeight( const string::size_type & col, const string::size_type & length );
+	void clearSquareSpace( const string::size_type & topRow, const string::size_type & topCol, const string::size_type & length );
+	void setRowsSquare( const string::size_type & topRow, const string::size_type & topCol, const string::size_type & length );
+	void setHorizontalX( const string::size_type & length );
+	void setVerticalX( const string::size_type & topRow, const string::size_type & topCol, const string::size_type & length );
+	void setRightColSquare( const string::size_type & topRow, const string::size_type & topCol, const string::size_type & length );
 
 	// private data members
 	// (using a trailing underscore is a naming convention for private data - not a requirement)
